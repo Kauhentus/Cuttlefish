@@ -28,6 +28,18 @@ log <- c	# List: [1, 2, 3]
 log <- d	# List: [1, 4, 3]
 ```
 
+More List information:
+```
+# Ranges [first, second? .. last]
+g = [1..10]			# List: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+h = [10,8..1]		# List: [10, 8, 6, 4, 2]
+# Tuples do not have range syntax
+
+# Standard member access
+log <- [1,2][1]		# 2
+```
+---
+
 Function creation and function calling:
 ```
 add2A = (a, b) => a + b		# Lambda notation
@@ -50,7 +62,7 @@ log <- (add2B <- 2) 4	# RH arrow is stil left associative, be careful
 two = () => 2
 log <- two ()		# No arguments is represented with an empty Tuple
 ```
-
+---
 Imperative logic. These can only go in the outer program or in a `do` block.
 Assignments (`=`, `+=`, `*=`, etc) are not expressions either . They can only go in outer programs or `do` blocks as well.
 ```
@@ -71,16 +83,7 @@ for i in [1..10]:		# For loop
     log i
 ```
 
-More List information:
-```
-# Ranges [first, second? .. last]
-g = [1..10]			# List: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-h = [10,8..1]		# List: [10, 8, 6, 4, 2]
-# Tuples do not have range syntax
-
-# Standard member access
-log <- [1,2][1]		# 2
-```
+---
 
 Operator list:
 ```
@@ -112,6 +115,20 @@ a - 3	# Offending expression
 # Is this apply(a, -3) or subtract(a, 3)?
 # It's ambigious - very bad - so we get rid of that problem
 ```
+---
+Pipelines allow us to easily construct function chains.
+```
+example = {
+	x => x ** 2
+	x => 1 / x
+}
+log <- 8 ~ example
+log <- [2,4,8]'1 ~ example		# Call pipieline with ~
+```
+Pipelines work with maps too.  Pipelines allow for clean function chaining - highly useful in certain algorithms and projects.
+
+---
+
 Basic typechecking can be done with `=:`
 ```
 2 =: Number
@@ -128,6 +145,7 @@ true =: Boolean
 # Other types have special names and are checked like this
 # All the expressions above evaluate to true
 ```
+---
 Import and exports currently only work with external modules. Native module support is still in development. 
 ```
 import external "discord.js" as Discord			# External library import
@@ -135,5 +153,5 @@ import external "discord.js" as Discord			# External library import
 client = Discord.Client $ ()
 client.login "<token>"
 ```
-### Be sure to read up on how the Map context / monad works
+### Finally, be sure to read up on how the Map context / monad works
 It's the bread and butter of Cuttlefish if you learn how to use it!

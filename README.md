@@ -1,47 +1,48 @@
 # Cuttlefish
 
-Cuttlefish is an interpreted language which combines our favorite parts of JavaScript and Python with functional programming (inspired by Haskell) sprinkled throughout. Cuttlefish's compiler is currently a prototype - see **Roadmap** below for more information.
+Cuttlefish is an interpreted language which combines our favorite parts of JavaScript and Python with functional programming (inspiration from Haskell and J) sprinkled throughout. Cuttlefish's compiler is currently a prototype - see **Roadmap** below for more information.
 
-From the start, @emixampons and I had ideas we wanted to see in programming languages long, even before we began working together. Seeing as there was a Replit programming language jam, it was the perfect opportunity to get started. Thus, Cuttlefish was born.
+From the start, @emixampons and I always had ideas we wanted to see in programming languages floating around. Seeing as there was a Replit programming language jam, it was the perfect opportunity to finally get started. We joined forces, and Cuttlefish was born.
 
+## Features
+- Expressive data types:
+	- Number, Boolean, String
+	- List, Tuple
+	- Contexts / Monads
+		- Map - elegant data manipulation 
+		- Maybe - error handling
+- Functions
+	- Lambda and normal functions
+	- Pipelines for chaining
+- Functional programming
+- Imperative programming
+- Classes
+- External Node.js import support
 
+These features are still in development:
+- Static typing
+- Helpful compiler errors
+- Error handling
+- Native module system
+- see **Roadmap** **To-do list** below for a comprehensive list
 
 # Using Cuttlefish
 Check out our [main repl here](https://repl.it/@TeamCuttlefish/Cuttlefish#main.cf). Cuttlefish programs go in `./main.cf`, which is preloaded with `./examples/tic-tac-toe.cf`. More example programs are under `./examples`. 
 
-### **The Replit version of Cuttlefish is *SLOW*.** It recompiles the Typescript every time it is run.
-### **Use the precompiled version of Cuttlefish on [Github](https://github.com/Kauhentus/Cuttlefish) for *FASTER* runtime**. 
+**The Replit version of Cuttlefish is *SLOW*.** It recompiles the Typescript every time it is run, and I couldn't fix that. **Use the precompiled version of Cuttlefish on [Github](https://github.com/Kauhentus/Cuttlefish) for *FASTER* runtime**. 
 **Note**: For the github repository, `npm run compileP` is the command to run `./main.cf`.
 
 Programs in `./examples`:
-- `discord-bot.cf`: 
-	- A simple discord bot
-	- Shows how external node libraries (ie `Discord.js`) are used
-	- You will need to supply your own bot token in the code
+- `discord-bot.cf`:   A simple discord bot. It shows how external node libraries (ie `Discord.js`) are used, but you'll need to supply your own bot token in the code
 	
-- `tic-tac-toe.cf`: 
-	- A simple two player tic-tac-toe game
-	- Input is `x y`  (ie `0 1`, mark cell in row `0` and column `1`	- Shows all the different features of Cuttlefish being used in a complex program
+- `tic-tac-toe.cf`: A simple two player tic-tac-toe game. Input looks like `x y`  (ie `0 1`, mark cell in row `0` and column `1`). The program shows all the different features of Cuttlefish being used in a complex program
+
+**Note:** Error handling is not fully implemented, so reach out if you have any questions about the syntax or if you're stuck on a bug.
 
 # Basics
 Most of Cuttlefish's syntax is similar to Python and Haskell. It currently transpiles to Nodejs JavaScript.
 
-Cuttlefish can be used imperatively or functionally. Here are two examples. You can check the [documentation](https://github.com/Kauhentus/Cuttlefish/tree/master/docs) for specifics on syntax.
-
-```
-# Simple imperative prime checker:
-isPrime = with n do:
-    if n == 2:
-        return true
-    elif n > 1:
-        for i in [2..(n / 2)]:
-            if n % i == 0:
-                return false
-        return true
-    else:
-        return false
-log <- isPrime 67
-```
+Cuttlefish can be used imperatively and functionally. Here a functional example. You can check the [documentation](https://github.com/Kauhentus/Cuttlefish/tree/master/docs) for specifics on syntax. There is an imperative program in the `examples` folder too.
 
 ```
 # Functional 99 bottles of beer program:
@@ -65,11 +66,13 @@ line = with x do:
         log <- unit + " of beer on the wall, " + unit + " of beer."
         log <- "Take one down and pass it around, " + newUnit + "of beer on the wall.\n"
 
-line <$> [99,98..0]'1	# Functional magic to be explained
+line <$> [99,98..0]'1	# Functional magic, the power of Cuttlefish lies in this one line!
 ```
 
 # Design
-Unique main features of Cuttlefish include the `Pipeline` and `Map`.   Check the docs for info about other not-so-unique features, like currying and `Maybe`.
+Unique main features of Cuttlefish include the `Pipeline` and `Map`.   Check the docs for info about other not-so-unique features, like currying, `Maybe`, `<$>`, etc. 
+
+Cuttlefish was designed to be high level and expressive - a perfect example is the `Map` context / monad. Pipelines support this goal too.
 
 ### Maps
 A map is a special context that "wraps" around values, typically `Lists`, in Cuttlefish. The context includes an associated number called "rank". Maps are like a kind of monad. Let's see a few examples.
@@ -106,7 +109,7 @@ example = {
 	x => 1 / x
 }
 log <- 8 ~ example
-log <- [2,4,8]'1 ~ example
+log <- [2,4,8]'1 ~ example		# Call pipieline with ~
 ```
 Pipelines work with maps too.  Pipelines allow for clean function chaining - highly useful in certain algorithms and projects.
 
@@ -120,11 +123,12 @@ Cuttlefish development will continue regardless of the Jam. Both @emixampons and
 	- Enhance the integrity of FP in Cuttlefish (ie. `do` aren't correctly FP)
 	- Add more contexts / monads (ie. `IO`, `State`)
 	- Add a REPL
+	- Add an extensive macro system
 - **Back-end**:
 	- Add proper variable scoping
 	- Implement proper typing and type-checking
 	- Add proper error handling / tracing
-	- Implement proper mangling
+	- Implement proper variable mangling
 	- Implement native Cuttlefish types rather than relying on target transpiling language's primitive types
 	- Fix native module system (`import`, `export`)
 
