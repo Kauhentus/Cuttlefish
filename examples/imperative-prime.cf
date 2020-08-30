@@ -1,0 +1,12 @@
+isPrime = with n do:
+    if n == 2:
+        return true
+    elif n > 1:
+        for i in [2..(n / 2)]:
+            if n % i == 0:
+                return false
+        return true
+    else:
+        return false
+
+log <- [0..100]'0 \\ isPrime

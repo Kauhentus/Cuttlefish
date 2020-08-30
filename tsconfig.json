@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "incremental": true,
+        "module": "CommonJS",
+        "lib": ["ES6", "DOM"],
+        "allowJs": true,
+        "outDir": "./build",
+        "rootDir": "./ts-src",
+        "strict": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "./ts-src/**/*.ts",
+        "./ts-src/**/*.js",
+        "./ts-src/**/*.ne"
+    ],
+    "exclude": [
+        "./ts-src/util/transpiler_header.js"
+    ]
+}

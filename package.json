@@ -1,0 +1,29 @@
+{
+  "name": "cuttlefish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compileTS": "tsc --build ./tsconfig.json",
+    "compileGrammar": "nearleyc .\\ts-src\\grammar.ne -o .\\ts-src\\util\\grammar.js",
+    "compileProgram": "node .\\build\\index.js .\\main.cf",
+    "compileGTP": "npm run compileGrammar && npm run compileTS && npm run compileProgram",
+    "compileTP": "npm run compileTS && npm run compileProgram",
+    "compileP": "npm run compileProgram"
+  },
+  "author": "Kauhentus, Maxime",
+  "license": "ISC",
+  "dependencies": {
+    "@shieldsbetter/nearley-indentify": "0.0.11",
+    "@types/moo": "^0.5.3",
+    "@types/nearley": "^2.11.1",
+    "@types/node": "^14.6.0",
+    "discord.js": "^12.3.1",
+    "moo": "^0.5.1",
+    "nearley": "^2.19.6",
+    "ramda": "^0.27.1"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.27.14"
+  }
+}

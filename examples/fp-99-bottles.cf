@@ -1,0 +1,21 @@
+# Num -> String
+show = with x do:
+    if x == 0:
+        return "no more bottles"
+    elif x == 1:
+        return "1 bottle"
+    else:
+        return (x.toString ()) + " bottles"
+
+# Num -> ()
+line = with x do:
+    if x == 0:
+        log "No more bottles of beer on the wall, no more bottles of beer."
+        log "Go to the store and buy some more, 99 bottles of beer on the wall."
+    else:
+        unit = show x
+        newUnit = show x - 1
+        log <- unit + " of beer on the wall, " + unit + " of beer."
+        log <- "Take one down and pass it around, " + newUnit + "of beer on the wall.\n"
+
+line <$> [99,98..0]'1

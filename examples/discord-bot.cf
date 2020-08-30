@@ -1,0 +1,41 @@
+import external "discord.js" as Discord
+
+client = Discord.Client $ ()
+prefix = "!"
+
+/* ========================
+Replace "*" with your own token below
+======================== */
+token = "*" 
+
+# any -> ()
+handleMessage = with msg do:
+    raw_text = msg.content
+
+    log "Message: '" raw_text "', Author: " msg.author.username
+
+    if msg.author.bot:
+        return ()
+
+    if (raw_text.slice 0 1) != prefix:
+        return ()
+   
+    raw_args = (raw_text.slice 1).split " "
+    command = raw_args[0]
+    args = raw_args.slice 1
+
+    if command == "say":
+        msg.channel.send (args.join " ")
+    
+    if command == "ping":
+        # any -> ()
+        ping_handler = with new_msg do:
+            ping = new_msg.createdTimestamp - msg.createdTimestamp
+            msg.channel.send ("Pong: " + ping + "ms")
+
+        (msg.channel.send "Pinging...").then ping_handler
+
+client.on "ready" (_ => log "Bot started")
+client.on "message" handleMessage
+
+client.login token
