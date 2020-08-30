@@ -41,25 +41,25 @@ var tpU = function (AST) {
             var variable_name = tpU(AST.variable);
             if (variable_name.split('.')[0] == '(this')
                 return tpU(AST.variable) + " = subtract(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
-            return "let " + tpU(AST.variable) + " = subtract(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
+            return tpU(AST.variable) + " = subtract(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
         }
         else if (AST.type == 'assignment_multiply') {
             var variable_name = tpU(AST.variable);
             if (variable_name.split('.')[0] == '(this')
                 return tpU(AST.variable) + " = multiply(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
-            return "let " + tpU(AST.variable) + " = multiply(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
+            return tpU(AST.variable) + " = multiply(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
         }
         else if (AST.type == 'assignment_divide') {
             var variable_name = tpU(AST.variable);
             if (variable_name.split('.')[0] == '(this')
                 return tpU(AST.variable) + " = divide(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
-            return "let " + tpU(AST.variable) + " = divide(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
+            return tpU(AST.variable) + " = divide(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
         }
         else if (AST.type == 'assignment_modulo') {
             var variable_name = tpU(AST.variable);
             if (variable_name.split('.')[0] == '(this')
                 return tpU(AST.variable) + " = modulo(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
-            return "let " + tpU(AST.variable) + " = modulo(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
+            return tpU(AST.variable) + " = modulo(" + tpU(AST.variable) + ",copy(" + tpU(AST.value) + "))";
         }
         else if (AST.type == 'expression') {
             return tpU(AST.value);

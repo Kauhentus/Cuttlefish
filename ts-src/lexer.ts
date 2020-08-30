@@ -3,7 +3,8 @@ const IndentifyLexer = require("@shieldsbetter/nearley-indentify");
 
 const lexer = new IndentifyLexer(moo.compile({
     boolean: /true|false/,
-    keywords: /with|while|do|import|as|from|export|default|return|external/,
+    keyword: /return/,
+    // keywords: /\b(?:with|while|do|import|as|from|export|default|return|external)\b/,
     number: /[0-9]+(?:\.[0-9]+)?/,
     word: /[a-zA-Z_][0-9a-zA-Z_]*/,
     string: /"(?:\\["bfnrt\/\\]|\\u[a-fA-F0-9]{4}|[^"\\])*"/,

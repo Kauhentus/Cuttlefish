@@ -1,14 +1,32 @@
 # Cuttlefish
 
-Cuttlefish is an interpreted language which combines our favorite parts of JavaScript and Python with functional programming (inspired by Haskell) sprinkled throughout.  Cuttlefish's compiler is currently a prototype - see **Roadmap** below for more information.
+Cuttlefish is an interpreted language which combines our favorite parts of JavaScript and Python with functional programming (inspired by Haskell) sprinkled throughout. Cuttlefish's compiler is currently a prototype - see **Roadmap** below for more information.
 
-### About
-From the start, @emixampons and I had ideas we wanted to see in programming languages long, even before we began working together. Seeing as there was a Repl.it programming language jam, it was the perfect opportunity to get started. Cuttlefish was born.
+From the start, @emixampons and I had ideas we wanted to see in programming languages long, even before we began working together. Seeing as there was a Replit programming language jam, it was the perfect opportunity to get started. Thus, Cuttlefish was born.
 
-### Basic Information & Examples
-Most of Cuttlefish's syntax is similar to Python and Haskell. Currently, it transpiles to Nodejs JavaScript, so all the node modules are available. Future transpiling to python is planned for ML and PyTorch support.
 
-Cuttlefish can be used imperatively or functionally. Here are two examples. You can check the documentation for specifics and longer, more comprehensive examples (check out this tic-tac-toe program!).
+
+# Using Cuttlefish
+Check out our [main repl here](https://repl.it/@TeamCuttlefish/Cuttlefish#main.cf). Cuttlefish programs go in `./main.cf`, which is preloaded with `./examples/tic-tac-toe.cf`. More example programs are under `./examples`. 
+
+### **The Replit version of Cuttlefish is *SLOW*.** It recompiles the Typescript every time it is run.
+### **Use the precompiled version of Cuttlefish on [Github](https://github.com/Kauhentus/Cuttlefish) for *FASTER* runtime**. 
+**Note**: For the github repository, `npm run compileP` is the command to run `./main.cf`.
+
+Programs in `./examples`:
+- `discord-bot.cf`: 
+	- A simple discord bot
+	- Shows how external node libraries (ie `Discord.js`) are used
+	- You will need to supply your own bot token in the code
+	
+- `tic-tac-toe.cf`: 
+	- A simple two player tic-tac-toe game
+	- Input is `x y`  (ie `0 1`, mark cell in row `0` and column `1`	- Shows all the different features of Cuttlefish being used in a complex program
+
+# Basics
+Most of Cuttlefish's syntax is similar to Python and Haskell. It currently transpiles to Nodejs JavaScript.
+
+Cuttlefish can be used imperatively or functionally. Here are two examples. You can check the [documentation](https://github.com/Kauhentus/Cuttlefish) for specifics and longer, more comprehensive examples.
 
 ```
 # Simple imperative prime checker:
@@ -49,6 +67,7 @@ line = with x do:
 
 line <$> [99,98..0]'1	# Functional magic to be explained
 ```
+
 # Design
 Unique main features of Cuttlefish include the `Pipeline` and `Map`.   Check the docs for info about other not-so-unique features, like currying and `Maybe`.
 
@@ -101,14 +120,18 @@ Cuttlefish development will continue regardless of the Jam. Both @emixampons and
 	- Enhance the integrity of FP in Cuttlefish (ie. `do` aren't correctly FP)
 	- Add more contexts / monads (ie. `IO`, `State`)
 	- Add a REPL
-	- 
 - **Back-end**:
 	- Add proper variable scoping
 	- Implement proper typing and type-checking
 	- Add proper error handling / tracing
 	- Implement proper mangling
 	- Implement native Cuttlefish types rather than relying on target transpiling language's primitive types
+	- Fix native module system (`import`, `export`)
 
 
 ### Credits
 - @Kauhentus, @emixampons
+
+[Replit](https://repl.it/@TeamCuttlefish/Cuttlefish#main.cf)
+[Github](https://github.com/Kauhentus/Cuttlefish)
+[Documentation](https://github.com/Kauhentus/Cuttlefish)

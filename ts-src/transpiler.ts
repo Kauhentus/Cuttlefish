@@ -47,22 +47,22 @@ ${AST.statements.map((val : any) => tpU(val)).join(';\n')}
         else if(AST.type == 'assignment_subtract'){
             let variable_name = tpU(AST.variable);
             if(variable_name.split('.')[0] == '(this') return `${tpU(AST.variable)} = subtract(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
-            return `let ${tpU(AST.variable)} = subtract(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
+            return `${tpU(AST.variable)} = subtract(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
         }  
         else if(AST.type == 'assignment_multiply'){
             let variable_name = tpU(AST.variable);
             if(variable_name.split('.')[0] == '(this') return `${tpU(AST.variable)} = multiply(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
-            return `let ${tpU(AST.variable)} = multiply(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
+            return `${tpU(AST.variable)} = multiply(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
         }  
         else if(AST.type == 'assignment_divide'){
             let variable_name = tpU(AST.variable);
             if(variable_name.split('.')[0] == '(this') return `${tpU(AST.variable)} = divide(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
-            return `let ${tpU(AST.variable)} = divide(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
+            return `${tpU(AST.variable)} = divide(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
         }  
         else if(AST.type == 'assignment_modulo'){
             let variable_name = tpU(AST.variable);
             if(variable_name.split('.')[0] == '(this') return `${tpU(AST.variable)} = modulo(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
-            return `let ${tpU(AST.variable)} = modulo(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
+            return `${tpU(AST.variable)} = modulo(${tpU(AST.variable)},copy(${tpU(AST.value)}))`;
         }  
         
         else if(AST.type == 'expression'){

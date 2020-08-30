@@ -1,41 +1,130 @@
-import external "discord.js" as Discord
+import external "readline" as readline
 
-client = Discord.Client $ ()
-prefix = "!"
+class ReadlineInterface with ():
+    this.input = process.stdin
+    this.output = process.stdout
+    this.terminal = false
 
-/* ========================
-Replace "*" with your own token below
-======================== */
-token = "*" 
+rlInterface = ReadlineInterface $ ()
+rl = readline.createInterface rlInterface
 
-# any -> ()
-handleMessage = with msg do:
-    raw_text = msg.content
+class Game with ():
+    this.CurrentPlayer = 1
+    this.N = 2
+    this.MoveCount = 0
+    this.Won = 0
 
-    log "Message: '" raw_text "', Author: " msg.author.username
+    # Num -> Map<0> Num
+    this.generateBoard = with size do:
+        row = (_ => 0) <$> [0..size]'1
+        cols = (_=> @(copy row)) <$> [0..size]'1
+        return cols'0
 
-    if msg.author.bot:
-        return ()
+    this.Board = this.generateBoard this.N
 
-    if (raw_text.slice 0 1) != prefix:
-        return ()
-   
-    raw_args = (raw_text.slice 1).split " "
-    command = raw_args[0]
-    args = raw_args.slice 1
+    # Num -> Num -> Num -> ()
+    this.Move = with (x, y, playerSign) do:
+        currentVal = (this.Board)[x][y]
+        newVal = currentVal == 0 ? playerSign : currentVal
 
-    if command == "say":
-        msg.channel.send (args.join " ")
-    
-    if command == "ping":
-        # any -> ()
-        ping_handler = with new_msg do:
-            ping = new_msg.createdTimestamp - msg.createdTimestamp
-            msg.channel.send ("Pong: " + ping + "ms")
+        # List -> List
+        updateBoard = board => board.set [x, y] newVal 
+        this.Board = updateBoard <$> this.Board
+        this.MoveCount += 1
 
-        (msg.channel.send "Pinging...").then ping_handler
+        winner = (this.HorizontalCheck x playerSign) || (this.VerticalCheck y playerSign) || (this.DiagonalCheck playerSign) 
+        this.Won = winner ? playerSign : 0
 
-client.on "ready" (_ => log "Bot started")
-client.on "message" handleMessage
+    # Num -> Num -> Bool
+    this.HorizontalCheck = (x, sign) => this.Board[x] \& (v => v == sign)
+    this.VerticalCheck = (y, sign) => this.Board'1[y] \& (v => v == sign)
 
-client.login token
+    # List -> A -> Bool
+    this.allEquals = (list, value) => list'0 \& (x => x == value)
+    # Num -> Bool
+    this.DiagonalCheck = with sign do:
+        b = this.Board
+        TL_BR_Diag = this.allEquals [b[0][0], b[1][1], b[2][2]] sign
+        BL_TR_Diag = this.allEquals [b[2][0], b[1][1], b[0][2]] sign
+        return TL_BR_Diag || BL_TR_Diag
+
+    # String -> List<String> -> Map<1> List<String> -> Map<0> List<String>
+    this.ParseInputs = {
+        rawInput => List (rawInput.split " ")
+        args => (x => parseInt x) <$> args'1
+        highMap => highMap'0
+    }
+
+    # Num -> String
+    # Num[] -> String
+    this.stateToString = state => state == 0 ? " " : state == 1 ? "X" : "O"
+    this.rowToString = row => @(this.stateToString <$> row'1).join " │ "
+    # () -> String
+    this.Display = with () do:
+        rows = this.rowToString <$> this.Board'1
+        log <- "\n" + (@rows.join "\n──┼───┼──\n") + "\n"
+
+    # Map<0> List<String> -> Maybe<Map<0> List<String>>
+    this.checkInput = with input do:
+        if @input.length != 2:
+            return Nothing
+        
+        if input \| (n => isNaN n):
+            return Nothing
+
+        # Num -> BBool
+        outOfBounds = x => x < 0 || 2 < x
+        if (outOfBounds input[0]) || (outOfBounds input[1]):
+            return Nothing
+
+        return Just input
+
+    # () -> String
+    this.Start = with () do:
+        this.Display ()
+        log <- "Player X's turn:" 
+
+    # () -> String
+    this.DisplayWinner = with () do:
+        log <- "Player " + (this.stateToString this.Won) + " has won"
+
+    # String -> ()
+    this.Input = with inputString do:
+        m_tileIndex = (Try (_ => inputString ~ this.ParseInputs)) >>= this.checkInput
+
+        if m_tileIndex =: CMaybeJust:
+            tileIndex = @m_tileIndex
+            this.Move tileIndex[0] tileIndex[1] this.CurrentPlayer
+
+            this.CurrentPlayer = this.CurrentPlayer == 1 ? 2 : 1
+            this.Display()
+
+            if this.Won != 0:
+                this.DisplayWinner ()
+            elif this.MoveCount == 9:
+                log <- "This game has ended in a draw"
+                this.Won = (-1)
+            else:
+                log <- "Player " + (this.stateToString this.CurrentPlayer) + "'s turn:"            
+        else:
+            log <- "Invalid input: '" + inputString + "', try again"
+            log <- "Player " + (this.stateToString this.CurrentPlayer) + "'s turn:"
+
+
+game = Game $ ()
+game.Start ()
+
+# String -> ()
+handleAnswer = with answer do:
+    game.Input answer
+
+    if game.Won != 0:
+        rl.close ()
+    else:
+        turn ()
+
+# () -> ()
+turn = with () do:
+    rl.question "> " handleAnswer
+
+turn ()

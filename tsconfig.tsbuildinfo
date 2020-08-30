@@ -162,7 +162,7 @@
         "affectsGlobalScope": false
       },
       "./ts-src/lexer.ts": {
-        "version": "94bb172849116ab06da8b17003ea16267c4d96d57d6371c567b9a88ce9a65954",
+        "version": "c51cf74949c36f8b61ace6accc37c2da8d2af907298483be1a62ac6374a992ca",
         "signature": "be7c52b78131069799cea888366bf647bc957f04f1072f5b2df6357ea188db28",
         "affectsGlobalScope": false
       },
@@ -192,7 +192,7 @@
         "affectsGlobalScope": false
       },
       "./ts-src/transpiler.ts": {
-        "version": "d1ae2de4edf65c5ee05718644799b63df6655083a471221c4d1f3b91063f3c88",
+        "version": "6ea3fd2f34d28ce938429ad1fda2277b54f4305f185152dec95bb37acf3fd6e9",
         "signature": "e715314aaedffe422749a57c473d217a911892fcab95f77cd910104f0043cb3f",
         "affectsGlobalScope": false
       },
