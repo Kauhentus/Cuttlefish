@@ -26,7 +26,7 @@ Programs in `./examples`:
 # Basics
 Most of Cuttlefish's syntax is similar to Python and Haskell. It currently transpiles to Nodejs JavaScript.
 
-Cuttlefish can be used imperatively or functionally. Here are two examples. You can check the [documentation](https://github.com/Kauhentus/Cuttlefish) for specifics and longer, more comprehensive examples.
+Cuttlefish can be used imperatively or functionally. Here are two examples. You can check the [documentation](https://github.com/Kauhentus/Cuttlefish/tree/master/docs) for specifics on syntax.
 
 ```
 # Simple imperative prime checker:
@@ -134,4 +134,4 @@ Cuttlefish development will continue regardless of the Jam. Both @emixampons and
 
 [Replit](https://repl.it/@TeamCuttlefish/Cuttlefish#main.cf)
 [Github](https://github.com/Kauhentus/Cuttlefish)
-[Documentation](https://github.com/Kauhentus/Cuttlefish)
+[Documentation](https://github.com/Kauhentus/Cuttlefish/tree/master/docs)
